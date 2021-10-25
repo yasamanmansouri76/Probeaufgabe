@@ -28,20 +28,14 @@
   </p>
 </template>
 
-<script>
+<script setup lang="ts">
 import { reactive } from "vue";
 
-export default {
-  name: "HelloWorld",
-  props: {
-    msg: String,
-  },
-  setup(props) {
-    const state = reactive({ count: 0 });
+defineProps<{
+    msg: string,
+}>()
 
-    return { state };
-  },
-};
+const state = reactive({ count: 0 });
 </script>
 
 <style scoped>
