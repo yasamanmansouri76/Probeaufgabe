@@ -1,21 +1,13 @@
 # lexmea-probeaufgabe
 
 ## Project setup
-```
-docker login harbor.lexmea.de -u bewerber -p Bewerber2020
-```
-```
-docker-compose up
-```
-```
-http://localhost:8080
-```
 
-### Oder
-
-```
+```bash
 npm install
 ```
+
+```bash
+npm run dev
 ```
-vue ui
-```
+
+Visit the site on `localhost:8080`
