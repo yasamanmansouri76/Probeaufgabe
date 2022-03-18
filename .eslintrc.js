@@ -7,8 +7,11 @@ module.exports = {
     node: true,
   },
 
+  parser: "vue-eslint-parser",
+
   parserOptions: {
-    ecmaVersion: 2021,
+    parser: "@typescript-eslint/parser",
+    sourceType: "module",
   },
 
   globals: {
@@ -22,12 +25,15 @@ module.exports = {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "vue/no-unused-components": "warn",
+    "vue/attribute-hyphenation": ["warn", "never"],
+    "vue/v-on-event-hyphenation": ["warn", "never"],
     "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-non-null-assertion": "off",
   },
 
   extends: [
-    "plugin:vue/vue3-essential",
+    "plugin:@typescript-eslint/recommended",
     "eslint:recommended",
-    "@vue/typescript",
+    "plugin:vue/vue3-recommended",
   ],
 };

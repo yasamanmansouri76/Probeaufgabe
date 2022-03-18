@@ -10,4 +10,4 @@ npm install
 npm run dev
 ```
 
-Visit the site on `localhost:8080`
+Visit the site on `localhost:3000`
