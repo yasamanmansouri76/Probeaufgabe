@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import "./index.css";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import ProductList from "@/pages/product/index.vue";
+import ProductList from "@/pages/products/index.vue";
 
 const app = createApp(App);
 
