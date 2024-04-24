@@ -12,9 +12,9 @@
       <p class="text-zinc-500 clamp mb-1">{{ product.description }}</p>
       <div v-if="isAvailable">
         <span>Price: </span>
-        <span class="text-zinc-500"
-          >{{ product.price.value }} {{ product.price.currency }}</span
-        >
+        <span class="text-zinc-500">
+          {{ product.price.value }} {{ product.price.currency }}
+        </span>
       </div>
     </div>
   </div>

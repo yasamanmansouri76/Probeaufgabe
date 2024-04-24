@@ -6,7 +6,7 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
-      @click="handleProductItem(product)"
+      @click="handleProductItem(product.id)"
     />
   </div>
 </template>
@@ -31,17 +31,18 @@ export default {
   },
 
   methods: {
-    ...mapActions(useProductsStore, ["setActiveProduct"]),
+    ...mapActions(useProductsStore, ["setProducts"]),
     async getProducts() {
       const { data, statusCode } = await getProductsList();
       if (statusCode.value === 200) {
         this.products = data.value.products;
         this.headerSubtitle = data.value.header.headerDescription;
         this.headerTitle = data.value.header.headerTitle;
+        this.setProducts(this.products);
       }
     },
-    handleProductItem(product) {
-      this.setActiveProduct(product);
+    handleProductItem(productId) {
+      this.$router.push({ path: "/details", query: { id: productId } });
     },
   },
 
@@ -50,4 +51,3 @@ export default {
   },
 };
 </script>
-@/store/store
