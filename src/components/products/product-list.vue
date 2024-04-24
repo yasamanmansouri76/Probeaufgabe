@@ -36,7 +36,7 @@ export default {
         this.products = data.value.products;
         this.headerSubtitle = data.value.header.headerDescription;
         this.headerTitle = data.value.header.headerTitle;
-        useStorage("productsArray", [this.products]);
+        useStorage("productsArray", this.products);
       }
     },
     handleProductItem(productId) {

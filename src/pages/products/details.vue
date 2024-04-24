@@ -3,7 +3,9 @@
     <div class="flex">
       <img :src="activeProduct.imageURL" class="h-14 w-14 mr-2" />
       <div>
-        <span class="font-semibold">{{ activeProduct.name }}</span>
+        <span class="font-semibold" :class="{ 'text-sky-700': isInWishList }">{{
+          activeProduct.name
+        }}</span>
         <div>
           <span>Price: </span>
           <span class="text-zinc-500">
@@ -14,7 +16,18 @@
       </div>
     </div>
     <p class="text-xs text-zinc-500 mt-2">{{ activeProduct.description }}</p>
-    <button class="bg-sky-700 text-center text-white w-full p-1 my-3">
+    <button
+      v-if="isInWishList"
+      class="bg-sky-700 text-center text-white w-full p-1 my-3"
+      @click="removeFromWishList()"
+    >
+      Forget
+    </button>
+    <button
+      v-else
+      class="bg-sky-700 text-center text-white w-full p-1 my-3"
+      @click="addToWishList()"
+    >
       Remember
     </button>
     <span class="font-semibold block">Description</span>
@@ -32,6 +45,7 @@ export default {
     return {
       activeProduct: {},
       productId: this.$route.query.id,
+      wishList: [],
     };
   },
 
@@ -41,12 +55,32 @@ export default {
         "en-US"
       );
     },
+    isInWishList() {
+      return this.wishList?.find(
+        (item) => item.id.toString() === this.productId
+      );
+    },
+  },
+
+  methods: {
+    addToWishList() {
+      useStorage("wishListArray", []).value.push(this.activeProduct);
+
+      this.$router.go();
+    },
+    removeFromWishList() {
+      const index = this.wishList.indexOf(this.activeProduct);
+      const newProductWishArray = this.wishList.splice(index, 1);
+
+      useStorage("productsArray", newProductWishArray);
+
+      this.$router.go();
+    },
   },
 
   beforeMount() {
-    const myArray = useStorage("productsArray", []);
-
-    this.activeProduct = myArray.value[0].find(
+    this.wishList = useStorage("wishListArray", []).value;
+    this.activeProduct = useStorage("productsArray", []).value.find(
       (item) => item.id.toString() === this.productId
     );
   },
