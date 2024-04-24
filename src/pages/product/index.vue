@@ -1,8 +1,7 @@
 <template>
-  <div class="h-screen flex flex-col">
+  <div class="h-screen">
     <FilterNav />
-    <div class="grow">dfsd</div>
-    <FilterNav />
+    <div>dfsd</div>
   </div>
 </template>
 
