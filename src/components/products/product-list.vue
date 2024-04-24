@@ -1,8 +1,12 @@
 <template>
-  <div>
+  <div class="p-2">
     <span class="font-semibold block">{{ headerTitle }}</span>
-    <span class="text-zinc-500 block">{{ headerSubtitle }}</span>
-    <ProductItem />
+    <span class="text-zinc-500 block mb-2">{{ headerSubtitle }}</span>
+    <ProductItem
+      v-for="product in products"
+      :key="product.id"
+      :product="product"
+    />
   </div>
 </template>
 
