@@ -25,8 +25,7 @@
 </template>
 
 <script lang="ts">
-import { mapState } from "pinia";
-import { useProductsStore } from "@/store/products";
+import { useStorage } from "@vueuse/core";
 
 export default {
   data() {
@@ -37,7 +36,6 @@ export default {
   },
 
   computed: {
-    ...mapState(useProductsStore, ["getProducts"]),
     date() {
       return new Date(this.activeProduct.releaseDate).toLocaleDateString(
         "en-US"
@@ -46,7 +44,9 @@ export default {
   },
 
   beforeMount() {
-    this.activeProduct = this.getProducts.find(
+    const myArray = useStorage("productsArray", []);
+
+    this.activeProduct = myArray.value[0].find(
       (item) => item.id.toString() === this.productId
     );
   },

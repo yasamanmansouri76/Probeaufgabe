@@ -12,10 +12,9 @@
 </template>
 
 <script lang="ts">
-import { mapActions } from "pinia";
 import ProductItem from "@/components/products/product-item.vue";
 import { getProductsList } from "@/services/products";
-import { useProductsStore } from "@/store/products";
+import { useStorage } from "@vueuse/core";
 
 export default {
   components: {
@@ -31,14 +30,13 @@ export default {
   },
 
   methods: {
-    ...mapActions(useProductsStore, ["setProducts"]),
     async getProducts() {
       const { data, statusCode } = await getProductsList();
       if (statusCode.value === 200) {
         this.products = data.value.products;
         this.headerSubtitle = data.value.header.headerDescription;
         this.headerTitle = data.value.header.headerTitle;
-        this.setProducts(this.products);
+        useStorage("productsArray", [this.products]);
       }
     },
     handleProductItem(productId) {
