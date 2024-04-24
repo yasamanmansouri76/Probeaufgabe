@@ -13,39 +13,31 @@
 
 <script lang="ts">
 import ProductItem from "@/components/products/product-item.vue";
-import { getProductsList } from "@/services/products";
-import { useStorage } from "@vueuse/core";
 
 export default {
   components: {
     ProductItem,
   },
 
-  data() {
-    return {
-      products: [],
-      headerTitle: null,
-      headerSubtitle: null,
-    };
+  props: {
+    products: {
+      type: Array,
+      default: null,
+    },
+    headerSubtitle: {
+      type: String,
+      default: "",
+    },
+    headerTitle: {
+      type: String,
+      default: "",
+    },
   },
 
   methods: {
-    async getProducts() {
-      const { data, statusCode } = await getProductsList();
-      if (statusCode.value === 200) {
-        this.products = data.value.products;
-        this.headerSubtitle = data.value.header.headerDescription;
-        this.headerTitle = data.value.header.headerTitle;
-        useStorage("productsArray", this.products);
-      }
-    },
     handleProductItem(productId) {
       this.$router.push({ path: "/details", query: { id: productId } });
     },
-  },
-
-  beforeMount() {
-    this.getProducts();
   },
 };
 </script>
