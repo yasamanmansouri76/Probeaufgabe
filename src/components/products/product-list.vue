@@ -6,13 +6,16 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
+      @click="handleProductItem(product)"
     />
   </div>
 </template>
 
 <script lang="ts">
+import { mapActions } from "pinia";
 import ProductItem from "@/components/products/product-item.vue";
 import { getProductsList } from "@/services/products";
+import { useProductsStore } from "@/store/products";
 
 export default {
   components: {
@@ -28,6 +31,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(useProductsStore, ["setActiveProduct"]),
     async getProducts() {
       const { data, statusCode } = await getProductsList();
       if (statusCode.value === 200) {
@@ -36,6 +40,9 @@ export default {
         this.headerTitle = data.value.header.headerTitle;
       }
     },
+    handleProductItem(product) {
+      this.setActiveProduct(product);
+    },
   },
 
   beforeMount() {
@@ -43,3 +50,4 @@ export default {
   },
 };
 </script>
+@/store/store
